@@ -3,16 +3,24 @@
   "name": "gpt_ashisutanto",
   "version": "1.0.0",
   "background": {
-    "service_worker":  "background.js",
+    "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": ["tabs", "contextMenus"],
-  "web_accessible_resources": [{
-    "resources": ["gpt_ashisutanto.js"],
-    "matches": ["<all_urls>"]
-  }],
+  "permissions": [
+    "tabs",
+    "contextMenus"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "gpt_ashisutanto.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   }
 }
-

@@ -1,35 +1,29 @@
-import init, { print_upper_string, event_create } from "./gpt_ashisutanto.js";
+import wasm_init, { event_create } from "./gpt_ashisutanto.js";
 
 chrome.runtime.onInstalled.addListener(function() {
   chrome.contextMenus.create({
-    id: "sendToRust",
+    id: "createEvent",
     title: "Create event in Google Calander",
     contexts: ["selection"]
   });
 });
 
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId === "sendToRust") {
-    // chrome.tabs.sendMessage(tab.id, {selectionText: info.selectionText}, function(response) {
-    //   console.log(response);
-    // });
-    sendSelectionToEventCreate(info, tab);
+chrome.contextMenus.onClicked.addListener(function(info) {
+  if (info.menuItemId === "createEvent") {
+    sendSelectionToEventCreate(info);
   }
 });
 
-async function sendSelectionToEventCreate(info, tab) {
+async function sendSelectionToEventCreate(info) {
   const selectedText = info.selectionText;
   const result = await event_create(selectedText);
+
+  // Print ChatGPT reply 
   console.log(result);
 }
 
 async function main() {
-  await init();
-
-  chrome.tabs.onActivated.addListener(async (tab) => {
-    const activeTab = await chrome.tabs.get(tab.tabId);
-    console.log(print_upper_string(activeTab.url));
-  });
+  await wasm_init();
 }
 
 main();
