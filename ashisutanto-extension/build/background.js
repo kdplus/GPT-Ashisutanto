@@ -17,15 +17,16 @@ chrome.contextMenus.onClicked.addListener(function(info) {
 
 async function sendSelectionToEventCreate(info) {
   const selectedText = info.selectionText;
-  const gptAnswerOfTime = await event_create(selectedText);
-  // console.log(gptAnswerOfTime);
-  createGoogleCalendarEvent(gptAnswerOfTime);
+  const gptAnswer = await event_create(selectedText);
+  console.log(gptAnswer);
+  createGoogleCalendarEvent(gptAnswer);
 }
 
-function createGoogleCalendarEvent(timeSlot) {
+function createGoogleCalendarEvent(eventInfo) {
+
   // Parse the time duration string
   const regex = /!#\?(.+?)\?#!/g;
-  const matches = regex.exec(timeSlot);
+  const matches = regex.exec(eventInfo.time);
   const timeStr = matches[1];
   const timeZone = 'Asia/Tokyo';
   const [startDateStr, startTimeStr, endTimeStr] = timeStr.split(/[\s~]+/);
@@ -35,9 +36,9 @@ function createGoogleCalendarEvent(timeSlot) {
   const [endMonth, endDay, endYear] = startDateStr.split("/");
 
   const event = {
-    summary: 'Event Title',
+    summary: eventInfo.text,
     location: 'Event Location',
-    description: 'Event Description',
+    description: eventInfo.detail,
     start: {
       dateTime: new Date(startYear, startMonth - 1, startDay, startHour, startMinute).toISOString(),
       timeZone: timeZone
