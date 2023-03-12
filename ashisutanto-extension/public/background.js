@@ -16,10 +16,18 @@ chrome.contextMenus.onClicked.addListener(function(info) {
 });
 
 async function sendSelectionToEventCreate(info) {
-  const selectedText = info.selectionText;
-  const gptAnswer = await event_create(selectedText);
-  console.log(gptAnswer);
-  createGoogleCalendarEvent(gptAnswer);
+  chrome.storage.local.get(['apiKey'], async (result) => {
+    const apiKey = result.apiKey;
+    if (!apiKey) {
+      // Display a message to the user to input an API key
+      alert('Please input an API key in the extension');
+    } else {
+      const selectedText = info.selectionText;
+      const gptAnswer = await event_create(selectedText, apiKey);
+      console.log(gptAnswer);
+      createGoogleCalendarEvent(gptAnswer);
+    }
+  });
 }
 
 function createGoogleCalendarEvent(eventInfo) {

@@ -209,12 +209,15 @@ function __wbg_adapter_24(arg0, arg1, arg2) {
 
 /**
 * @param {string} input_text
+* @param {string} api_key
 * @returns {Promise<any>}
 */
-export function event_create(input_text) {
+export function event_create(input_text, api_key) {
     const ptr0 = passStringToWasm0(input_text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.event_create(ptr0, len0);
+    const ptr1 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ret = wasm.event_create(ptr0, len0, ptr1, len1);
     return takeObject(ret);
 }
 
@@ -483,7 +486,7 @@ function getImports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper288 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper289 = function(arg0, arg1, arg2) {
         const ret = makeMutClosure(arg0, arg1, 118, __wbg_adapter_24);
         return addHeapObject(ret);
     };

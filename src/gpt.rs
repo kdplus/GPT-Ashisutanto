@@ -4,9 +4,8 @@ use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
 
 
-pub async fn ask_gpt(messages: Vec<HashMap<&str, &str>>) -> Result<String, JsValue> {
+pub async fn ask_gpt(messages: Vec<HashMap<&str, &str>>, api_key: String) -> Result<String, JsValue> {
     let url = "https://api.openai.com/v1/chat/completions";
-    let api_key = "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";
 
     let client = reqwest::Client::new();
     let response = client

@@ -15,7 +15,7 @@ struct EventInfo {
 }
 
 #[wasm_bindgen]
-pub async fn event_create(input_text: String) -> Result<JsValue, JsValue> {
+pub async fn event_create(input_text: String, api_key: &str) -> Result<JsValue, JsValue> {
     let time_prefix =
         "Extract time slot from the given email and your reply must follow this four rules: \n\
         1. Reply the time duration in format 'MM/DD/YYYY HH:MM ~ HH:MM' \n\
@@ -50,8 +50,8 @@ pub async fn event_create(input_text: String) -> Result<JsValue, JsValue> {
         ("content", &detail_prompt_text),
     ])];
 
-    let time_slot = ask_gpt(time_messages).await?;
-    let title_detail = ask_gpt(detail_messages).await?;
+    let time_slot = ask_gpt(time_messages, api_key.to_owned()).await?;
+    let title_detail = ask_gpt(detail_messages, api_key.to_owned()).await?;
 
     let (title, detail) = match title_detail
         .split("/!#?/")
