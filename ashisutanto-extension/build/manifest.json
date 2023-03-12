@@ -1,0 +1,38 @@
+{
+  "name": "gpt_ashisutanto",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "logo192.png",
+    "64": "logo192.png",
+    "128": "logo192.png"
+  },
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Open the popup"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs",
+    "contextMenus",
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [
+    "gpt_ashisutanto.js"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' 'wasm-eval' https://apis.google.com/ https://accounts.google.com/ https://www.googleapis.com/ https://ajax.googleapis.com/ http://localhost; object-src 'self'"
+}

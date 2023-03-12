@@ -1,21 +1,12 @@
-use lazy_static::lazy_static;
 use reqwest;
 use serde_json::json;
 use std::collections::HashMap;
-use std::fs;
 use wasm_bindgen::prelude::*;
 
-lazy_static! {
-    static ref API_KEY: String = {
-        // let api_key = fs::read_to_string("./api_key.txt").expect("Failed to read API key file");
-        let api_key = "<YOUR-API-KEY>";
-        api_key.trim().to_owned()
-    };
-}
 
 pub async fn ask_gpt(messages: Vec<HashMap<&str, &str>>) -> Result<String, JsValue> {
     let url = "https://api.openai.com/v1/chat/completions";
-    let api_key = API_KEY.as_str();
+    let api_key = "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";
 
     let client = reqwest::Client::new();
     let response = client
