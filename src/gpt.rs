@@ -6,7 +6,7 @@ use wasm_bindgen::prelude::*;
 
 pub async fn ask_gpt(messages: Vec<HashMap<&str, &str>>) -> Result<String, JsValue> {
     let url = "https://api.openai.com/v1/chat/completions";
-    let api_key = "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";
+    let api_key = "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";
 
     let client = reqwest::Client::new();
     let response = client
