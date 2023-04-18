@@ -20,7 +20,13 @@ async function sendSelectionToEventCreate(info) {
     const apiKey = result.apiKey;
     if (!apiKey) {
       // Display a message to the user to input an API key
-      alert('Please input an API key in the extension');
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'logo192.png',
+        title: 'GPT_Ashisutanto',
+        message: 'Please input an API key in the extension'
+      });
+      // alert('Please input an API key in the extension');
     } else {
       const selectedText = info.selectionText;
       const gptAnswer = await event_create(selectedText, apiKey);
@@ -63,7 +69,8 @@ function createGoogleCalendarEvent(eventInfo) {
   url += "text=" + event.summary + "&";
   url += "location=" + event.location + "&";
   url += "details=" + event.description + "&";
-  window.open(url, '_blank');
+  // window.open(url, '_blank');
+  chrome.tabs.create({ url: url });
 }
 
 async function main() {

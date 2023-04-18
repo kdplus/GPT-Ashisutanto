@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "background": {
-    "persistent": false,
-    "page": "background.html"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -30,6 +30,7 @@
     "activeTab",
     "tabs",
     "contextMenus",
+    "notifications",
     "<all_urls>"
   ],
   "web_accessible_resources": [
